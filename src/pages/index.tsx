@@ -7,8 +7,9 @@ interface IProject {
 }
 
 export default function Home() {
-  const [recommendedProducts, setRecommendedProducts] = useState<IProject>([]);
+  const [recommendedProducts, setRecommendedProducts] = useState<IProject[]>([]);
 
+  // Server Side Rendering
   useEffect(() => {
     fetch('http://localhost:3333/recommended').then(response => {
       response.json().then(data => {
