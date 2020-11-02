@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { GetServerSideProps } from 'next';
 import { Title } from '../styles/Pages/Home';
 
 interface IProject {
@@ -6,17 +6,19 @@ interface IProject {
   title: string
 }
 
-export default function Home() {
-  const [recommendedProducts, setRecommendedProducts] = useState<IProject[]>([]);
+interface HomeProps {
+  recommendedProducts: IProject[];
+}
 
-  // Server Side Rendering
-  useEffect(() => {
-    fetch('http://localhost:3333/recommended').then(response => {
-      response.json().then(data => {
-        setRecommendedProducts(data);
-      });
-    });
-  }, []);
+export default function Home({ recommendedProducts }: HomeProps) {
+  // Client Side Rendering
+  // useEffect(() => {
+  //   fetch('http://localhost:3333/recommended').then(response => {
+  //     response.json().then(data => {
+  //       setRecommendedProducts(data);
+  //     });
+  //   });
+  // }, []);
 
   return (
     <div>
@@ -35,4 +37,16 @@ export default function Home() {
       </section>
     </div>
   )
+}
+
+// Server Side Rendering
+export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
+  const response = await fetch('http://localhost:3333/recommended');
+  const recommendedProducts = await response.json();
+
+  return {
+    props: {
+      recommendedProducts
+    }
+  }
 }
