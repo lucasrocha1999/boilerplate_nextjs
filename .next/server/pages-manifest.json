@@ -1,6 +1,7 @@
 {
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
+  "/catalog/categories/[slug]": "pages/catalog/categories/[slug].js",
   "/catalog/products/[slug]": "pages/catalog/products/[slug].html",
   "/": "pages/index.js",
   "/search": "pages/search.html",
